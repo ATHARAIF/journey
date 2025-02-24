@@ -86,24 +86,24 @@
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             position: relative;
-            z-index: 1; /* Z-index lebih rendah dari bubble chat */
+            z-index: 1;
             backdrop-filter: blur(5px);
             width: 90%;
             max-width: 400px;
         }
         .bubble {
-            position: fixed; /* Menggunakan fixed agar bubble chat bisa menembus countdown */
+            position: fixed;
             padding: 10px 20px;
             background-color: rgba(255, 111, 97, 0.9);
             color: white;
             border-radius: 20px;
             font-size: 16px;
             opacity: 0;
-            animation: fadeInOut 5s infinite ease-in-out; /* Durasi 5 detik */
+            animation: fadeInOut 5s infinite ease-in-out;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 2; /* Bubble chat di atas countdown */
-            max-width: 80%; /* Lebar maksimum bubble chat */
-            word-wrap: break-word; /* Agar teks tidak keluar dari bubble */
+            z-index: 2;
+            max-width: 80%;
+            word-wrap: break-word;
         }
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; transform: translateY(0); }
@@ -142,6 +142,36 @@
             .timer {
                 font-size: 1em;
             }
+        }
+        .photo-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 0;
+        }
+        .photo-frame {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 5px solid rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            animation: fadeInOutPhoto 10s infinite;
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @keyframes fadeInOutPhoto {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 1; }
         }
     </style>
 </head>
@@ -188,11 +218,55 @@
     <!-- Bubble Chat akan di-generate oleh JavaScript -->
     <div id="bubble-container"></div>
 
+    <!-- Elemen Audio -->
+    <audio id="background-music" loop>
+        <source src="https://atharaif.github.io/journey/thecdi.ca - Can't Take My Eyes Off You - Frankie Valli x Lauryn Hill (Joseph Vincent Cover).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="photo-container" id="photo-container">
+        <!-- Foto akan di-generate oleh JavaScript -->
+    </div>
+
     <script>
+                // Daftar link foto
+                const photoUrls = [
+                "https://atharaif.github.io/journey/IMG-20241217-WA0001.jpg",
+                "https://atharaif.github.io/journey/IMG-20250120-WA0011.jpg",
+            ];
+    
+            // Fungsi untuk menampilkan foto secara bergantian
+            function showPhotos() {
+                const photoContainer = document.getElementById("photo-container");
+                let currentIndex = 0;
+    
+                setInterval(() => {
+                    // Hapus foto sebelumnya
+                    photoContainer.innerHTML = "";
+    
+                    // Buat elemen frame foto
+                    const photoFrame = document.createElement("div");
+                    photoFrame.className = "photo-frame";
+    
+                    // Tambahkan gambar ke dalam frame
+                    const img = document.createElement("img");
+                    img.src = photoUrls[currentIndex];
+                    photoFrame.appendChild(img);
+    
+                    // Tambahkan frame ke container
+                    photoContainer.appendChild(photoFrame);
+    
+                    // Update indeks untuk foto berikutnya
+                    currentIndex = (currentIndex + 1) % photoUrls.length;
+                }, 5000); // Ganti foto setiap 5 detik
+            }
         // Fungsi untuk memulai loading
         function startLoading() {
             document.getElementById("intro").style.display = "none";
             document.getElementById("loading-screen").style.display = "block";
+
+            // Mulai memutar musik
+            const backgroundMusic = document.getElementById("background-music");
+            backgroundMusic.play();
 
             let progress = 0;
             const progressBar = document.getElementById("progress");
