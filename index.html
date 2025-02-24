@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Love Journey</title>
+    <link rel="icon" href="https://atharaif.github.io/journey/IMG-20250204-WA0103.jpg">
+    <meta name="description" content="Our Loveee journeyyy❤">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
         body {
             font-family: 'Great Vibes', cursive;
             background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
@@ -101,9 +104,21 @@
             opacity: 0;
             animation: fadeInOut 5s infinite ease-in-out;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 2;
+            z-index: 3;
             max-width: 80%;
             word-wrap: break-word;
+            font-family:Courier;
+        }
+        .photo {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0;
+            animation: fadeInOut 5s infinite ease-in-out;
+            z-index: 2;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; transform: translateY(0); }
@@ -126,7 +141,6 @@
             font-size: 1.2em;
             color: #5e2a2a;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
         /* Responsive adjustments */
         @media (max-width: 600px) {
@@ -142,36 +156,6 @@
             .timer {
                 font-size: 1em;
             }
-        }
-        .photo-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 0;
-        }
-        .photo-frame {
-            width: 150px;
-            height: 150px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            border: 5px solid rgba(255, 255, 255, 0.8);
-            opacity: 0;
-            animation: fadeInOutPhoto 10s infinite;
-        }
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        @keyframes fadeInOutPhoto {
-            0%, 100% { opacity: 0; }
-            10%, 90% { opacity: 1; }
         }
     </style>
 </head>
@@ -215,7 +199,7 @@
         </div>
     </div>
 
-    <!-- Bubble Chat akan di-generate oleh JavaScript -->
+    <!-- Bubble Chat dan Foto akan di-generate oleh JavaScript -->
     <div id="bubble-container"></div>
 
     <!-- Elemen Audio -->
@@ -223,42 +207,8 @@
         <source src="https://atharaif.github.io/journey/thecdi.ca - Can't Take My Eyes Off You - Frankie Valli x Lauryn Hill (Joseph Vincent Cover).mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-    <div class="photo-container" id="photo-container">
-        <!-- Foto akan di-generate oleh JavaScript -->
-    </div>
 
     <script>
-                // Daftar link foto
-                const photoUrls = [
-                "https://atharaif.github.io/journey/IMG-20241217-WA0001.jpg",
-                "https://atharaif.github.io/journey/IMG-20250120-WA0011.jpg",
-            ];
-    
-            // Fungsi untuk menampilkan foto secara bergantian
-            function showPhotos() {
-                const photoContainer = document.getElementById("photo-container");
-                let currentIndex = 0;
-    
-                setInterval(() => {
-                    // Hapus foto sebelumnya
-                    photoContainer.innerHTML = "";
-    
-                    // Buat elemen frame foto
-                    const photoFrame = document.createElement("div");
-                    photoFrame.className = "photo-frame";
-    
-                    // Tambahkan gambar ke dalam frame
-                    const img = document.createElement("img");
-                    img.src = photoUrls[currentIndex];
-                    photoFrame.appendChild(img);
-    
-                    // Tambahkan frame ke container
-                    photoContainer.appendChild(photoFrame);
-    
-                    // Update indeks untuk foto berikutnya
-                    currentIndex = (currentIndex + 1) % photoUrls.length;
-                }, 5000); // Ganti foto setiap 5 detik
-            }
         // Fungsi untuk memulai loading
         function startLoading() {
             document.getElementById("intro").style.display = "none";
@@ -326,33 +276,63 @@
             "I love you to the moon and back"
         ];
 
-        // Fungsi untuk membuat bubble chat muncul dan hilang
-        function createBubble() {
+        // Daftar URL foto
+        const photoUrls = [
+"https://atharaif.github.io/journey/IMG-20241217-WA0001.jpg",
+            "https://atharaif.github.io/journey/IMG-20250120-WA0011.jpg",
+            "https://atharaif.github.io/journey/IMG-20250121-WA0017.jpg",
+            "https://atharaif.github.io/journey/IMG-20250122-WA0004.jpg",
+            "https://atharaif.github.io/journey/IMG-20250219-WA0005.jpg",
+            "https://atharaif.github.io/journey/IMG-20250219-WA0026.jpg",
+            "https://atharaif.github.io/journey/IMG-20250219-WA0028.jpg",
+            "https://atharaif.github.io/journey/IMG-20250219-WA0030.jpg",
+            "https://atharaif.github.io/journey/IMG-20250204-WA0016.jpg",
+            "https://atharaif.github.io/journey/IMG-20250204-WA0032.jpg",
+            "https://atharaif.github.io/journey/IMG-20250204-WA0033.jpg",
+            "https://atharaif.github.io/journey/IMG-20250204-WA0079.jpg",
+            "https://atharaif.github.io/journey/IMG-20250204-WA0103.jpg",
+            "https://atharaif.github.io/journey/IMG-20250204-WA0104.jpg",
+            "https://atharaif.github.io/journey/Screenshot_2025-02-19-22-53-48-203_com.instagram.android.jpg"
+        ];
+
+        // Fungsi untuk membuat bubble chat dan foto muncul dan hilang
+        function createBubbleAndPhoto() {
             const bubbleContainer = document.getElementById("bubble-container");
+
+            // Buat bubble chat
             const bubble = document.createElement("div");
             bubble.className = "bubble";
-
             const randomMessage = romanticMessages[Math.floor(Math.random() * romanticMessages.length)];
             bubble.innerText = randomMessage;
+
+            // Buat foto
+            const photo = document.createElement("img");
+            photo.className = "photo";
+            const randomPhotoUrl = photoUrls[Math.floor(Math.random() * photoUrls.length)];
+            photo.src = randomPhotoUrl;
 
             // Atur posisi acak dengan jarak dari tepi layar
             const x = Math.random() * (window.innerWidth - 200) + 50; // Jarak minimal 50px dari tepi
             const y = Math.random() * (window.innerHeight - 200) + 50; // Jarak minimal 50px dari tepi
             bubble.style.left = `${x}px`;
             bubble.style.top = `${y}px`;
+            photo.style.left = `${x + 120}px`; // Foto muncul di sebelah bubble chat
+            photo.style.top = `${y}px`;
 
-            // Tambahkan bubble ke container
+            // Tambahkan bubble dan foto ke container
             bubbleContainer.appendChild(bubble);
+            bubbleContainer.appendChild(photo);
 
-            // Hapus bubble setelah animasi selesai
+            // Hapus bubble dan foto setelah animasi selesai
             setTimeout(() => {
                 bubble.remove();
-            }, 5000); // Durasi bubble chat 5 detik
+                photo.remove();
+            }, 5000); // Durasi bubble chat dan foto 5 detik
         }
 
-        // Fungsi untuk memulai bubble chat
+        // Fungsi untuk memulai bubble chat dan foto
         function startBubbles() {
-            setInterval(createBubble, 2000); // Buat bubble chat setiap 2 detik
+            setInterval(createBubbleAndPhoto, 2000); // Buat bubble chat dan foto setiap 2 detik
         }
     </script>
 </body>
