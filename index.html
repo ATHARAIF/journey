@@ -236,17 +236,25 @@
 
         // Fungsi untuk menghitung waktu jadian
         function updateTimer() {
-            const startDate = new Date("2024-07-30");
+            // Tanggal mulai dalam WIB (2024-07-30 00:00:00 WIB)
+            const startDate = new Date("2024-07-30T00:00:00+07:00"); // WIB adalah UTC+7
+        
+            // Dapatkan waktu sekarang dalam WIB
             const now = new Date();
-            const diff = now - startDate;
-
+            const nowWIB = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
+        
+            // Hitung selisih waktu dalam milidetik
+            const diff = nowWIB - startDate;
+        
+            // Hitung tahun, bulan, hari, jam, menit, dan detik
             const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
             const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
             const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
+        
+            // Update tampilan
             document.getElementById("years").innerText = `${years} Years`;
             document.getElementById("months").innerText = `${months} Months`;
             document.getElementById("days").innerText = `${days} Days`;
@@ -254,8 +262,8 @@
             document.getElementById("minutes").innerText = `${minutes} Minutes`;
             document.getElementById("seconds").innerText = `${seconds} Seconds`;
         }
-
-        setInterval(updateTimer, 1000);
+        
+        setInterval(updateTimer, 1000); // Update setiap detik
 
         // Daftar kata-kata romantis
         const romanticMessages = [
@@ -316,7 +324,7 @@
             const y = Math.random() * (window.innerHeight - 200) + 50; // Jarak minimal 50px dari tepi
             bubble.style.left = `${x}px`;
             bubble.style.top = `${y}px`;
-            photo.style.left = `${x}px`; // Foto muncul di sebelah bubble chat
+            photo.style.left = `${x + 50}px`; // Foto muncul di sebelah bubble chat
             photo.style.top = `${y}px`;
 
             // Tambahkan bubble dan foto ke container
