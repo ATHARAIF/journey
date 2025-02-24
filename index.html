@@ -86,21 +86,24 @@
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             position: relative;
-            z-index: 2;
+            z-index: 1; /* Z-index lebih rendah dari bubble chat */
             backdrop-filter: blur(5px);
             width: 90%;
             max-width: 400px;
         }
         .bubble {
-            position: absolute;
+            position: fixed; /* Menggunakan fixed agar bubble chat bisa menembus countdown */
             padding: 10px 20px;
             background-color: rgba(255, 111, 97, 0.9);
             color: white;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 16px;
             opacity: 0;
-            animation: fadeInOut 5s infinite ease-in-out;
+            animation: fadeInOut 5s infinite ease-in-out; /* Durasi 5 detik */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 2; /* Bubble chat di atas countdown */
+            max-width: 80%; /* Lebar maksimum bubble chat */
+            word-wrap: break-word; /* Agar teks tidak keluar dari bubble */
         }
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; transform: translateY(0); }
@@ -195,7 +198,7 @@
             const progressBar = document.getElementById("progress");
 
             const interval = setInterval(() => {
-                progress += 10;
+                progress += 20; // Progress lebih cepat (20% setiap 200ms)
                 progressBar.style.width = `${progress}%`;
 
                 if (progress >= 100) {
@@ -204,7 +207,7 @@
                     document.getElementById("container").style.display = "block";
                     startBubbles();
                 }
-            }, 500);
+            }, 200); // Update progress setiap 200ms (total 1 detik untuk mencapai 100%)
         }
 
         // Fungsi untuk menghitung waktu jadian
@@ -258,21 +261,24 @@
             const randomMessage = romanticMessages[Math.floor(Math.random() * romanticMessages.length)];
             bubble.innerText = randomMessage;
 
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
+            // Atur posisi acak dengan jarak dari tepi layar
+            const x = Math.random() * (window.innerWidth - 200) + 50; // Jarak minimal 50px dari tepi
+            const y = Math.random() * (window.innerHeight - 200) + 50; // Jarak minimal 50px dari tepi
             bubble.style.left = `${x}px`;
             bubble.style.top = `${y}px`;
 
+            // Tambahkan bubble ke container
             bubbleContainer.appendChild(bubble);
 
+            // Hapus bubble setelah animasi selesai
             setTimeout(() => {
                 bubble.remove();
-            }, 5000);
+            }, 5000); // Durasi bubble chat 5 detik
         }
 
         // Fungsi untuk memulai bubble chat
         function startBubbles() {
-            setInterval(createBubble, 1000);
+            setInterval(createBubble, 2000); // Buat bubble chat setiap 2 detik
         }
     </script>
 </body>
